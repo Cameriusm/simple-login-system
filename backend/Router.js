@@ -13,7 +13,7 @@ class Router {
 
       username = username.toLowerCase();
 
-      if (username.length > 12 || password > 12) {
+      if (username.length > 12 || password.length > 12) {
         res.json({
           success: false,
           msg: 'An errors occured, please try again',
@@ -23,10 +23,11 @@ class Router {
 
       let cols = [username];
       db.query(
-        'SELECT * FROM user WHERE user = ? LIMIT 1',
+        'SELECT * FROM user WHERE username = ? LIMIT 1',
         cols,
         (err, data, fields) => {
           if (err) {
+            console.log(err);
             res.json({
               success: false,
               msg: 'An error occured, please try again',
@@ -49,6 +50,7 @@ class Router {
                   });
                   return;
                 } else {
+                  console.log();
                   res.json({
                     success: false,
                     msg: 'Invalid password',
